@@ -1,0 +1,9 @@
+<div *ngIf="pokemon" class="pokemon-card" (click)="openDetails()">
+  <img *ngIf="pokemon.sprites?.other?.dream_world?.front_default; else elseTemplate"
+    [src]="pokemon.sprites.other.dream_world.front_default" alt="{{ pokemon.name }}" class="pokemon-image" />
+  <p class="pokemon-name">{{ pokemon.name | titlecase }}</p>
+</div>
+
+<ng-template #elseTemplate>
+  <img src="assets/Pokeball.png" alt="image-default" class="pokemon-image" />
+</ng-template>

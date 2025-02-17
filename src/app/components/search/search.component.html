@@ -1,0 +1,5 @@
+<p-inputgroup>
+  <input pInputText placeholder="Pokémon name" [(ngModel)]="pokemonName" (keyup.enter)="searchPokemon()"
+    autocomplete="off" />
+  <p-button label="Search" icon="pi pi-search" (click)="searchPokemon()" />
+</p-inputgroup>

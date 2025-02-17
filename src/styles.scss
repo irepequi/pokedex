@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+// icons primeng
+@use "primeicons/primeicons";
+
+// fonts
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&display=swap");
+
+
+// global styles
+body {
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease;
+  min-width: 555px;
+}

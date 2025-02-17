@@ -1,0 +1,26 @@
+<p-card role="region" class="card-container" *ngIf="pokemon" (click)="selectPokemon()">
+
+<div class="card-container-grid" >
+  <div class="card-content">
+    <h3>{{ pokemon.name | titlecase }}</h3>
+
+    <div class="card-footer">
+      <p-chip *ngFor="let type of showTypes()"
+        [style]="{ backgroundColor: type.backgroundColor, color: type.textColor }"
+        [label]="type.name | titlecase"></p-chip>
+    </div>
+
+  </div>
+
+  <div class="card-image">
+    <ng-container *ngIf="pokemon.sprites.other.dream_world.front_default; else elseTemplate">
+      <img [src]="pokemon.sprites.other.dream_world.front_default" alt="{{ pokemon.name }}" class="pokemon-avatar" />
+    </ng-container>
+
+    <ng-template #elseTemplate>
+      <img src="assets/img/Pokeball.png" alt="image-default" class="pokemon-avatar" />
+    </ng-template>
+  </div>
+</div>
+</p-card>
+

@@ -1,0 +1,6 @@
+<div class="filter-container">
+  <label for="pokemon-type">Filter by Type:</label>
+  <select id="pokemon-type" [(ngModel)]="selectedType" (change)="onFilterChange()">
+    <option *ngFor="let type of pokemonTypes" [value]="type">{{ type }}</option>
+  </select>
+</div>

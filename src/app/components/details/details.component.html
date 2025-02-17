@@ -1,0 +1,77 @@
+<div class="pokemon-container" *ngIf="pokemonData">
+  <div class="pokemon-card">
+    <div class="pokemon-header">
+      <h2 class="pokemon-title">{{ pokemonData.name | titlecase }}</h2>
+      <p class="pokemon-id">Nº. {{ pokemonData.id }}</p>
+      <img *ngIf="pokemonData.sprites?.other?.dream_world?.front_default; else elseTemplate"
+        [src]="pokemonData.sprites.other.dream_world.front_default" alt="{{ pokemonData.name }}"
+        class="pokemon-avatar" />
+    </div>
+
+    <ng-template #elseTemplate>
+      <div class="card-image">
+        <img src="assets/img/Pokeball.png" alt="image-default" class="pokemon-avatar" />
+      </div>
+    </ng-template>
+
+    <div class="pokemon-body">
+      <!-- General Info Section -->
+      <div class="info-section">
+        <p-card role="region" class="info-section">
+          <h3 class="section-title">General Info</h3>
+          <div class="info-item">
+            <span class="info-label">Height: </span>
+            <span class="info-value">{{ pokemonData.height / 10 }} m</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Weight: </span>
+            <span class="info-value">{{ pokemonData.weight / 10 }} kg</span>
+          </div>
+        </p-card>
+      </div>
+
+      <!-- Type Section -->
+      <div class="info-section">
+        <p-card role="region" class="info-section">
+          <h3 class="section-title">Types</h3>
+          <div class="pokemon-info">
+            <p-chip *ngFor="let type of getPokemonTypes()"
+              [style]="{ backgroundColor: type.backgroundColor, color: type.textColor }"
+              [label]="type.name | titlecase"></p-chip>
+          </div>
+        </p-card>
+      </div>
+
+
+
+      <!-- Abilities Section -->
+      <div class="info-section abilities">
+        <p-card role="region" class="info-section">
+        <h3 class="section-title">Abilities</h3>
+        <div class="pokemon-info">
+          <p-chip *ngFor="let ability of pokemonData.abilities">
+            {{ ability.ability.name | titlecase }}
+          </p-chip>
+        </div>
+        </p-card>
+      </div>
+
+
+      <!-- Stats Section -->
+      <div class="info-section stats">
+        <p-card role="region" class="info-section" >
+        <h3 class="section-title">Stats</h3>
+        <ul class="stats-list">
+          <li *ngFor="let stat of pokemonData.stats" class="stats-item">
+            <span class="stat-name">{{ stat.stat.name | titlecase }}</span>
+            <span class="stat-value">{{ stat.base_stat }}</span>
+          </li>
+        </ul>
+        </p-card>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
