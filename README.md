@@ -4,6 +4,8 @@
 
 Esta es una aplicación construida en Angular v18+ que permite buscar y visualizar información detallada de los Pokémon gracias a la PokeAPI. Encuentra tus Pokémon favoritos, explora sus habilidades y conviértete en el mejor maestro Pokémon (de los datos).
 
+Demo: https://pokedex-eight-sepia.vercel.app/
+
 ## 🌟 Características
 
 ✨ Búsqueda Rápida: Encuentra cualquier Pokémon por su nombre al instante.
