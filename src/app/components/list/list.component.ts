@@ -42,8 +42,6 @@ export class ListComponent implements OnInit {
 
   /**
    * Fetches the list of pokemons from the API and populates the necessary data structures.
-   *
-   * @returns {void} - This function does not return any value.
    */
   loadPokemons() {
     this.pokemonService.getPokemonList(1000, 0).subscribe({
@@ -55,6 +53,7 @@ export class ListComponent implements OnInit {
 
         forkJoin(requests).subscribe((pokemons: Pokemon[]) => {
           this.allPokemons = pokemons;
+          this.filterService.extractPokemonTypes(pokemons);
           this.applyFilter(this.filterService.getCurrentFilter());
         });
       },
@@ -65,47 +64,31 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * Applies a filter to the list of pokemons based on the selected types.
-   * If no types are selected, all pokemons are displayed.
-   * Otherwise, only the pokemons with at least one type matching the selected types are displayed.
+   * Applies the selected types filter to the list of all pokemons.
+   * Resets the current page to 0 and updates the displayed pokemon list.
    *
-   * @param {string[]} selectedTypes - The array of selected types.
-   * @returns {void} - This function does not return any value.
+   * @param selectedTypes - An array of strings representing the selected pokemon types.
    */
-  applyFilter(selectedTypes: string[]) {
-    if (selectedTypes.length === 0) {
-      this.filteredPokemons = this.allPokemons;
-    } else {
-      this.filteredPokemons = this.allPokemons.filter((pokemon) =>
-        selectedTypes.every((type) =>
-          pokemon.types.some(
-            (pokemonType) =>
-              pokemonType.type.name.toLowerCase() === type.toLowerCase()
-          )
-        )
-      );
-    }
+  applyFilter(selectedTypes: string[]): void {
+    this.filteredPokemons = this.filterService.filterPokemons(
+      this.allPokemons,
+      selectedTypes
+    );
 
     this.currentPage = 0;
     this.updatePagination();
   }
 
   /**
-   * Updates the pagination based on the current page and page size.
-   * Calculates the offset and slices the filtered pokemons array to get the current page's pokemons.
-   *
-   * @returns {void} - This function does not return any value.
+   * Updates the displayed pokemon list based on the current page and page size.
+   * Calculates the offset for the slice operation and updates the `pokemonPage` array.
+   * Also updates the `totalPokemons` property with the length of the `filteredPokemons` array.
    */
   updatePagination() {
     this.totalPokemons = this.filteredPokemons.length;
 
     const offset = this.currentPage * this.pageSize;
 
-    /**
-     * Slices the filtered pokemons array to get the current page's pokemons.
-     *
-     * @type {Pokemon[]} - The current page's pokemons.
-     */
     this.pokemonPage = this.filteredPokemons.slice(
       offset,
       offset + this.pageSize
@@ -113,12 +96,10 @@ export class ListComponent implements OnInit {
   }
 
   /**
-   * Handles the pagination change event triggered by the user.
-   * Updates the current page and triggers the pagination update.
+   * Handles the pagination change event triggered by the user interacting with the pagination component.
+   * Updates the current page and triggers the update of the displayed pokemon list.
    *
-   * @param {any} event - The pagination event object.
-   * @param {number} event.page - The new page index.
-   * @returns {void} - This function does not return any value.
+   * @param event - The pagination event object containing the new page number.
    */
   onPageChange(event: any) {
     this.currentPage = event.page;
@@ -128,8 +109,7 @@ export class ListComponent implements OnInit {
   /**
    * Handles the selection of a pokemon by navigating to the corresponding pokemon detail page.
    *
-   * @param {Pokemon} pokemon - The selected pokemon object.
-   * @returns {void} - This function does not return any value.
+   * @param pokemon - The selected pokemon object.
    */
   selectPokemon(pokemon: Pokemon) {
     this.router.navigate(['/pokemon', pokemon.id]);

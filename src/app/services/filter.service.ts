@@ -10,6 +10,9 @@ export class FilterService {
   private filterSubject = new BehaviorSubject<string[]>([]);
   filter$ = this.filterSubject.asObservable();
 
+  private pokemonTypesSubject = new BehaviorSubject<string[]>([]);
+  pokemonTypes$ = this.pokemonTypesSubject.asObservable();
+
   /**
    * Sets the filter settings for Pokémon types.
    *
@@ -58,5 +61,30 @@ export class FilterService {
         )
       );
     }
+  }
+
+  /**
+   * Extracts unique Pokémon types from an array of Pokémon and updates the internal state.
+   *
+   * @param pokemons - The array of Pokémon from which to extract types.
+   * @returns {void}
+   */
+  extractPokemonTypes(pokemons: Pokemon[]): void {
+    const typeSet = new Set<string>();
+    pokemons.forEach((pokemon) => {
+      pokemon.types.forEach((typeInfo) => {
+        typeSet.add(typeInfo.type.name);
+      });
+    });
+    this.pokemonTypesSubject.next(Array.from(typeSet));
+  }
+
+  /**
+   * Retrieves an observable stream of unique Pokémon types.
+   *
+   * @returns An observable of an array of strings representing unique Pokémon types.
+   */
+  getPokemonTypes(): Observable<string[]> {
+    return this.pokemonTypes$;
   }
 }
