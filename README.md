@@ -1,59 +1,49 @@
-# PokedexApp
+# 🌟 PokéDex Angular - ¡No puedes atraparlos a todos sin conocerlos primero!
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+## 🚀 Aplicación de PokéDex en Tiempo Real con PokeAPI
 
-## Development server
+Esta es una aplicación construida en Angular v18+ que permite buscar y visualizar información detallada de los Pokémon gracias a la PokeAPI. Encuentra tus Pokémon favoritos, explora sus habilidades y conviértete en el mejor maestro Pokémon (de los datos).
 
-To start a local development server, run:
+Demo: https://pokedex-eight-sepia.vercel.app/
 
-```bash
-ng serve
-```
+## 🌟 Características
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+✨ Búsqueda Rápida: Encuentra cualquier Pokémon por su nombre al instante.
 
-## Code scaffolding
+📸 Vista Detallada: Consulta sus estadísticas, tipos, peso, altura y movimientos.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🎨 Diseño Responsive: Adaptado para cualquier dispositivo, desde una PokéDex de bolsillo hasta una pantalla 4K.
 
-```bash
-ng generate component component-name
-```
+## 🌐 Instalación
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Clona el repositorio:
 
-```bash
-ng generate --help
-```
+`git clone https://github.com/tu-usuario/pokedex-angular.git`
 
-## Building
+Instala las dependencias necesarias:
 
-To build the project run:
+`npm install`
 
-```bash
-ng build
-```
+Inicia la aplicación en modo desarrollo:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+`ng serve`
 
-## Running unit tests
+Esto abrirá la aplicación en tu navegador en http://localhost:4200.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🔍 Uso
 
-```bash
-ng test
-```
+Abre la aplicación y utiliza el campo de búsqueda para encontrar cualquier Pokémon por su nombre o ID.
 
-## Running end-to-end tests
+Haz clic en una tarjeta para ver información detallada.
 
-For end-to-end (e2e) testing, run:
+Explora sus habilidades, movimientos y características.
 
-```bash
-ng e2e
-```
+## 💪 Tecnologías Utilizadas
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- **Angular v19.1.5.**: Framework para la construcción de la aplicación.
 
-## Additional Resources
+- **TypeScript**: Lenguaje principal para una mejor estructura del código.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **PokeAPI**: Fuente de datos de Pokémon en tiempo real.
+
+- **SCSS**: Estilos mejorados y organizados.
