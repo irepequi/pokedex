@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
 import { Drawer } from 'primeng/drawer';
@@ -13,6 +13,9 @@ import { AppStateService } from './services/app-state.service';
 import { FormsModule } from '@angular/forms';
 
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { PokemonService } from './services/pokemon.service';
+import { ListComponent } from './components/list/list.component';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +41,8 @@ export class AppComponent {
 
   constructor(
     public appStateService: AppStateService,
+    private pokemonService: PokemonService,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -91,5 +96,10 @@ export class AppComponent {
    */
   toggleListVisibility(): void {
     this.appStateService.showList();
+  }
+
+  toggleResetList(): void {
+    this.appStateService.showList();
+    setTimeout(() => { window.location.reload(); }, 0);
   }
 }

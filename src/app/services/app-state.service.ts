@@ -8,10 +8,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AppStateService {
   private listVisibleSubject = new BehaviorSubject<boolean>(true);
   private detailsVisibleSubject = new BehaviorSubject<boolean>(false);
+  private resetVisibleSubject = new BehaviorSubject<boolean>(false);
   private errorSubject = new BehaviorSubject<string>('');
 
   listVisible$ = this.listVisibleSubject.asObservable();
   detailsVisible$ = this.detailsVisibleSubject.asObservable();
+  resetVisible$ = this.resetVisibleSubject.asObservable();
 
   constructor(private router: Router) {}
 
@@ -25,6 +27,7 @@ export class AppStateService {
   showList() {
     this.listVisibleSubject.next(true);
     this.detailsVisibleSubject.next(false);
+    this.showReset();
     this.router.navigate(['']);
   }
 
@@ -36,7 +39,12 @@ export class AppStateService {
    */
   showDetails() {
     this.listVisibleSubject.next(false);
+    this.resetVisibleSubject.next(false);
     this.detailsVisibleSubject.next(true);
+  }
+
+  showReset() {
+    this.resetVisibleSubject.next(true);
   }
 
   /**

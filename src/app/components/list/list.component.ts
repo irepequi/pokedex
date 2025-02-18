@@ -36,13 +36,17 @@ export class ListComponent implements OnInit {
     this.loadPokemons();
 
     this.filterService.getFilter().subscribe((selectedTypes) => {
-      this.applyFilter(selectedTypes);
+      this.applyFilter(
+        selectedTypes,
+        this.filterService.getCurrentSearchTerm()
+      );
+    });
+
+    this.filterService.getSearchTerm().subscribe((searchTerm) => {
+      this.applyFilter(this.filterService.getCurrentFilter(), searchTerm);
     });
   }
 
-  /**
-   * Fetches the list of pokemons from the API and populates the necessary data structures.
-   */
   loadPokemons() {
     this.pokemonService.getPokemonList(1000, 0).subscribe({
       next: (data) => {
@@ -54,7 +58,11 @@ export class ListComponent implements OnInit {
         forkJoin(requests).subscribe((pokemons: Pokemon[]) => {
           this.allPokemons = pokemons;
           this.filterService.extractPokemonTypes(pokemons);
-          this.applyFilter(this.filterService.getCurrentFilter());
+          this.applyFilter(
+            this.filterService.getCurrentFilter(),
+
+            this.filterService.getCurrentSearchTerm()
+          );
         });
       },
       error: (error) => {
@@ -63,27 +71,17 @@ export class ListComponent implements OnInit {
     });
   }
 
-  /**
-   * Applies the selected types filter to the list of all pokemons.
-   * Resets the current page to 0 and updates the displayed pokemon list.
-   *
-   * @param selectedTypes - An array of strings representing the selected pokemon types.
-   */
-  applyFilter(selectedTypes: string[]): void {
+  applyFilter(selectedTypes: string[], searchTerm: string): void {
     this.filteredPokemons = this.filterService.filterPokemons(
       this.allPokemons,
-      selectedTypes
+      selectedTypes,
+      searchTerm
     );
 
     this.currentPage = 0;
     this.updatePagination();
   }
 
-  /**
-   * Updates the displayed pokemon list based on the current page and page size.
-   * Calculates the offset for the slice operation and updates the `pokemonPage` array.
-   * Also updates the `totalPokemons` property with the length of the `filteredPokemons` array.
-   */
   updatePagination() {
     this.totalPokemons = this.filteredPokemons.length;
 
@@ -95,22 +93,11 @@ export class ListComponent implements OnInit {
     );
   }
 
-  /**
-   * Handles the pagination change event triggered by the user interacting with the pagination component.
-   * Updates the current page and triggers the update of the displayed pokemon list.
-   *
-   * @param event - The pagination event object containing the new page number.
-   */
   onPageChange(event: any) {
     this.currentPage = event.page;
     this.updatePagination();
   }
 
-  /**
-   * Handles the selection of a pokemon by navigating to the corresponding pokemon detail page.
-   *
-   * @param pokemon - The selected pokemon object.
-   */
   selectPokemon(pokemon: Pokemon) {
     this.router.navigate(['/pokemon', pokemon.id]);
   }

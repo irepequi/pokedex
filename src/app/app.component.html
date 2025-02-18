@@ -4,8 +4,12 @@
     <p-button *ngIf="(appStateService.listVisible$ | async)" (click)="drawerVisible = true" icon="pi pi-sliders-h"
       label="Filters" />
     <!-- Show list button -->
-    <p-button *ngIf="(appStateService.detailsVisible$ | async)" (click)="toggleListVisibility()" icon="pi pi-home"
-      label="Show List"></p-button>
+    <p-button *ngIf="(appStateService.detailsVisible$ | async)" (click)="toggleListVisibility()" icon="pi pi-arrow-left"
+      label="Return List"></p-button>
+
+    <!-- Reset list button -->
+    <p-button (click)="toggleResetList()" icon="pi pi-refresh"
+        label="Reset List"></p-button>
 
     <p-toggleswitch [(ngModel)]="isDark" (ngModelChange)="toggleDarkMode()">
       <ng-template #handle let-checked="isDark">

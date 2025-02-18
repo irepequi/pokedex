@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { PokemonService } from '../../services/pokemon.service';
 import { PokemonStateService } from '../../services/pokemon-state.service';
 import { AppStateService } from '../../services/app-state.service';
+import { FilterService } from '../../services/filter.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,6 +36,7 @@ export class SearchComponent implements OnInit {
     private pokemonService: PokemonService,
     private pokemonStateService: PokemonStateService,
     private appStateService: AppStateService,
+    private filterService: FilterService,
     private router: Router
   ) {}
 
@@ -49,6 +51,8 @@ export class SearchComponent implements OnInit {
   searchPokemon() {
     if (!this.pokemonName.trim()) return;
 
+    this.filterService.setSearchTerm(this.pokemonName);
+
     this.pokemonSubscription = this.pokemonService
       .getPokemon(this.pokemonName)
       .subscribe({
@@ -56,7 +60,7 @@ export class SearchComponent implements OnInit {
           this.pokemonStateService.setPokemonData(data);
           this.appStateService.setErrorMessage('');
           this.appStateService.showDetails();
-          this.router.navigate(['/pokemon', data.id]);
+          this.router.navigate(['']);
           this.pokemonName = '';
         },
         error: () => {

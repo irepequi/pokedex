@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import { Pokemon, PokemonList } from '../interface/pokemon';
 
 @Injectable({
@@ -9,6 +9,8 @@ import { Pokemon, PokemonList } from '../interface/pokemon';
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
   private typesUrl = 'https://pokeapi.co/api/v2/type';
+
+  totalPokemons = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -56,4 +58,26 @@ export class PokemonService {
     );
   }
 
+  // loadPokemons() {
+  //   this.getPokemonList(1000, 0).subscribe({
+  //     next: (data) => {
+  //       this.totalPokemons = data.count;
+  //       const requests = data.results.map((pokemonListResult) =>
+  //         this.getPokemon(pokemonListResult.name)
+  //       );
+
+  //       forkJoin(requests).subscribe((pokemons: Pokemon[]) => {
+  //         this.allPokemons = pokemons;
+  //         this.filterService.extractPokemonTypes(pokemons);
+  //         this.applyFilter(
+  //           this.filterService.getCurrentFilter(),
+  //           this.filterService.getCurrentSearchTerm()
+  //         );
+  //       });
+  //     },
+  //     error: (error) => {
+  //       console.log(error);
+  //     },
+  //   });
+  // }
 }
