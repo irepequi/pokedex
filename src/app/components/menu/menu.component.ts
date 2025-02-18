@@ -13,7 +13,6 @@ import { FilterComponent } from '../filter/filter.component';
 export class MenuComponent implements OnInit {
   @Input() visible: boolean = false;
   @Output() visibleChange = new EventEmitter<boolean>();
-  @Output() filterChanged = new EventEmitter<string>();
 
   constructor() {}
 
@@ -21,9 +20,5 @@ export class MenuComponent implements OnInit {
 
   closeDrawer() {
     this.visibleChange.emit(false);
-  }
-
-  onFilterChange(type: string) {
-    this.filterChanged.emit(type);
   }
 }

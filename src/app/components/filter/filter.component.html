@@ -1,6 +1,12 @@
-<div class="filter-container">
-  <label for="pokemon-type">Filter by Type:</label>
-  <select id="pokemon-type" [(ngModel)]="selectedType" (change)="onFilterChange()">
-    <option *ngFor="let type of pokemonTypes" [value]="type">{{ type }}</option>
-  </select>
+<div class="filter">
+  <h4>Filter by Type:</h4>
+
+  <p-button *ngIf="selectedTypes.length > 0" label="Uncheck all" (click)="toggleDeselectAll()"
+    class="filter__toggle-btn" />
+
+  <div *ngFor="let type of pokemonTypes" class="filter__item">
+    <p-checkbox name="type" [value]="type" [(ngModel)]="selectedTypes" (onChange)="onCheckboxChange()"
+      class="filter__checkbox"></p-checkbox>
+    <label [for]="type" class="filter__label">{{ type }}</label>
+  </div>
 </div>

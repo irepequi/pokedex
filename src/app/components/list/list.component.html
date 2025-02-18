@@ -1,8 +1,7 @@
 <div class="pokemon-list">
   <app-simple-card *ngFor="let pokemon of pokemonPage" [pokemon]="pokemon"
-    (pokemonSelected)="selectPokemon($event)"></app-simple-card>
+    (click)="selectPokemon(pokemon)"></app-simple-card>
 </div>
 
-<p-paginator [rows]="pageSize" [totalRecords]="totalPokemons" (onPageChange)="onPageChange($event)"
-  styleClass="paginator">
-</p-paginator>
+<p-paginator [rows]="pageSize" [totalRecords]="totalPokemons" [first]="currentPage * pageSize"
+  (onPageChange)="onPageChange($event)" styleClass="paginator"></p-paginator>

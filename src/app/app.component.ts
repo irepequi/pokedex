@@ -68,9 +68,6 @@ export class AppComponent {
   /**
    * Toggles the dark mode of the application by adding or removing the 'my-app-dark' class to the HTML element.
    *
-   * @remarks
-   * This function uses the Document.querySelector method to select the HTML element and then toggles the 'my-app-dark' class using the Element.classList.toggle method.
-   *
    * @returns {void} - This function does not return any value.
    */
   toggleDarkMode() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Pokemon, PokemonList } from '../interface/pokemon';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Pokemon, PokemonList } from '../interface/pokemon';
 })
 export class PokemonService {
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
-  private speciesUrl = 'https://pokeapi.co/api/v2/pokemon-species';
+  private typesUrl = 'https://pokeapi.co/api/v2/type';
 
   constructor(private http: HttpClient) {}
 
@@ -41,4 +41,19 @@ export class PokemonService {
       `${this.apiUrl}/${pokemonName.toLowerCase()}`
     );
   }
+
+  /**
+   * Retrieves a list of Pokémon types from the PokéAPI.
+   *
+   * @returns An Observable of type `string[]` containing the names of the Pokémon types.
+   */
+  getPokemonTypes(): Observable<string[]> {
+    return this.http.get<any>(this.typesUrl).pipe(
+      map((response) => {
+        if (!response.results) return [];
+        return response.results.map((type: any) => type.name);
+      })
+    );
+  }
+
 }
