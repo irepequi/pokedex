@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -28,6 +28,8 @@ import { Router } from '@angular/router';
   ],
 })
 export class SearchComponent implements OnInit {
+  @Output() searchCompleted = new EventEmitter<void>();
+
   private pokemonSubscription!: Subscription;
 
   pokemonName: string = '';
@@ -59,13 +61,16 @@ export class SearchComponent implements OnInit {
         next: (data) => {
           this.pokemonStateService.setPokemonData(data);
           this.appStateService.setErrorMessage('');
-          this.appStateService.showDetails();
+          this.appStateService.showList();
+          this.searchCompleted.emit();
           this.router.navigate(['']);
           this.pokemonName = '';
         },
         error: () => {
           this.pokemonStateService.setPokemonData(null);
-          this.appStateService.setErrorMessage('Pokémon no encontrado');
+          this.appStateService.setErrorMessage('Pokémon not found');
+          this.searchCompleted.emit();
+          this.router.navigate(['']);
           this.pokemonName = '';
         },
       });

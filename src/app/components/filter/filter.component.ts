@@ -23,6 +23,10 @@ export class FilterComponent implements OnInit {
     this.filterService.getPokemonTypes().subscribe((types) => {
       this.pokemonTypes = types;
     });
+
+    this.filterService.filter$.subscribe((filters) => {
+      this.selectedTypes = filters;
+    });
   }
 
   /**

@@ -1,21 +1,20 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { Drawer } from 'primeng/drawer';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 import { SearchComponent } from "./components/search/search.component";
 import { MenuComponent } from "./components/menu/menu.component";
+import { ListComponent } from './components/list/list.component';
 
 import { AppStateService } from './services/app-state.service';
-import { FormsModule } from '@angular/forms';
-
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { PokemonService } from './services/pokemon.service';
-import { ListComponent } from './components/list/list.component';
-import { timeout } from 'rxjs';
+import { FilterService } from './services/filter.service';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +41,7 @@ export class AppComponent {
   constructor(
     public appStateService: AppStateService,
     private pokemonService: PokemonService,
+    private filterService: FilterService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -99,7 +99,7 @@ export class AppComponent {
   }
 
   toggleResetList(): void {
+    this.filterService.resetAll();
     this.appStateService.showList();
-    setTimeout(() => { window.location.reload(); }, 0);
   }
 }

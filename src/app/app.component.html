@@ -3,7 +3,8 @@
     <!-- Filter button -->
     <p-button *ngIf="(appStateService.listVisible$ | async)" (click)="drawerVisible = true" icon="pi pi-sliders-h"
       label="Filters" />
-    <!-- Show list button -->
+
+    <!-- Return button -->
     <p-button *ngIf="(appStateService.detailsVisible$ | async)" (click)="toggleListVisibility()" icon="pi pi-arrow-left"
       label="Return List"></p-button>
 

@@ -27,7 +27,7 @@ export class AppStateService {
   showList() {
     this.listVisibleSubject.next(true);
     this.detailsVisibleSubject.next(false);
-    this.showReset();
+    // this.showReset();
     this.router.navigate(['']);
   }
 

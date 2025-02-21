@@ -71,6 +71,14 @@ export class ListComponent implements OnInit {
     });
   }
 
+  /**
+   * Applies filters to the list of Pokémon based on selected types and search term.
+   * Updates the filtered Pokémon list, resets the current page, and triggers pagination update.
+   *
+   * @param selectedTypes - An array of selected Pokémon types to filter by.
+   * @param searchTerm - A search term to filter Pokémon names by.
+   * @returns {void}
+   */
   applyFilter(selectedTypes: string[], searchTerm: string): void {
     this.filteredPokemons = this.filterService.filterPokemons(
       this.allPokemons,

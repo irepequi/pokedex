@@ -128,4 +128,9 @@ export class FilterService {
   getPokemonTypes(): Observable<string[]> {
     return this.pokemonTypes$;
   }
+
+  resetAll(): void {
+    this.filterSubject.next([]);
+    this.searchTermSubject.next('');
+  }
 }
